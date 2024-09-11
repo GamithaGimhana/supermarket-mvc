@@ -28,4 +28,8 @@ public class DBConnection {
         }
         return dBConnection;
     }
+    
+    public Connection getConnection(){
+        return connection;
+    }
 }
