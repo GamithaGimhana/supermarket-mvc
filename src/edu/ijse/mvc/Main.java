@@ -5,6 +5,7 @@
 package edu.ijse.mvc;
 
 import edu.ijse.mvc.db.DBConnection;
+import edu.ijse.mvc.view.LayoutFrame;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -20,7 +21,7 @@ public class Main {
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
         // TODO code application logic here
         Connection connection = DBConnection.getInstance().getConnection();
-        
+        new LayoutFrame().setVisible(true);
     }
     
 }

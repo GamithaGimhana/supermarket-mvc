@@ -8,7 +8,10 @@ import edu.ijse.mvc.db.DBConnection;
 import edu.ijse.mvc.dto.CustomerDto;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -66,6 +69,56 @@ public class CustomerModel {
         
         int result = statement.executeUpdate();
         return result > 0 ? "Success Build" : "Fail Build";
+    }
+    
+    public CustomerDto getCustomer(String CustID) throws SQLException, ClassNotFoundException {
+        Connection connection = DBConnection.getInstance().getConnection();
+        String sql = "select * from Customer where CustID = ?";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setString(1, CustID);
+        
+        ResultSet rst = statement.executeQuery();
+        
+        if(rst.next()){
+            CustomerDto customerDto = new CustomerDto(
+                rst.getString("CustID"),
+                rst.getString("CustTitle"),
+                rst.getString("CustName"),
+                rst.getString("DOB"),
+                rst.getDouble("salary"),
+                rst.getString("CustAddress"),
+                rst.getString("City"),
+                rst.getString("Province"),
+                rst.getString("PostalCode"));
+            
+            return customerDto;
+        }
+        return null;
+    }
+    
+    public List<CustomerDto> getAll() throws SQLException, ClassNotFoundException {
+        Connection connection = DBConnection.getInstance().getConnection();
+        String sql = "select * from Customer";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        
+        List<CustomerDto> customerDtos = new ArrayList<>();
+        ResultSet rst = statement.executeQuery();
+        
+        while(rst.next()){
+            CustomerDto customerDto = new CustomerDto(
+                rst.getString("CustID"),
+                rst.getString("CustTitle"),
+                rst.getString("CustName"),
+                rst.getString("DOB"),
+                rst.getDouble("salary"),
+                rst.getString("CustAddress"),
+                rst.getString("City"),
+                rst.getString("Province"),
+                rst.getString("PostalCode"));
+            
+            customerDtos.add(customerDto);
+        }
+        return customerDtos;
     }
     
 }

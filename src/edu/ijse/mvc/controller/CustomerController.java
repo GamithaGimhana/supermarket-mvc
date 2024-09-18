@@ -7,6 +7,7 @@ package edu.ijse.mvc.controller;
 import edu.ijse.mvc.dto.CustomerDto;
 import edu.ijse.mvc.model.CustomerModel;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  *
@@ -33,5 +34,15 @@ public class CustomerController {
     public String deleteCustomer(String custID) throws ClassNotFoundException, SQLException{
         String resp = CUSTOMER_MODEL.delete(custID);
         return resp;
+    }
+    
+    public CustomerDto searchCustomer(String custID) throws ClassNotFoundException, SQLException{
+        CustomerDto dto = CUSTOMER_MODEL.getCustomer(custID);
+        return dto;
+    }
+    
+    public List<CustomerDto> getAllCustomers() throws ClassNotFoundException, SQLException{
+        List<CustomerDto> customerDtos = CUSTOMER_MODEL.getAll();
+        return customerDtos;
     }
 }

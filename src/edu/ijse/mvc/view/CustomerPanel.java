@@ -1,26 +1,30 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package edu.ijse.mvc.view;
 
 import edu.ijse.mvc.controller.CustomerController;
 import edu.ijse.mvc.dto.CustomerDto;
+import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author gamit
  */
-public class customerView extends javax.swing.JFrame {
+public class CustomerPanel extends javax.swing.JPanel {
 
     private final CustomerController CUSTOMER_CONTROLLER;
+    
     /**
-     * Creates new form customerView
+     * Creates new form CustomerPanel
      */
-    public customerView() {
+    public CustomerPanel() {
         CUSTOMER_CONTROLLER = new CustomerController();
         initComponents();
+        loadTable();
     }
 
     /**
@@ -51,17 +55,17 @@ public class customerView extends javax.swing.JFrame {
         txtCustZip = new javax.swing.JTextField();
         lblCustProvince = new javax.swing.JLabel();
         txtCustProvince = new javax.swing.JTextField();
-        bSave = new javax.swing.JButton();
-        bUpdate = new javax.swing.JButton();
-        bDelete = new javax.swing.JButton();
+        btnSave = new javax.swing.JButton();
+        btnUpdate = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
         lblCustSalary = new javax.swing.JLabel();
         txtCustSalary = new javax.swing.JTextField();
         txtCustId = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        panelCustomerForm.setBackground(new java.awt.Color(204, 204, 204));
 
         lblTitle.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        lblTitle.setForeground(new java.awt.Color(255, 0, 0));
+        lblTitle.setForeground(javax.swing.UIManager.getDefaults().getColor("Actions.GreyInline"));
         lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitle.setText("Customer Form");
         lblTitle.setToolTipText("");
@@ -108,27 +112,27 @@ public class customerView extends javax.swing.JFrame {
         lblCustProvince.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblCustProvince.setText("Province");
 
-        bSave.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
-        bSave.setText("Save");
-        bSave.addActionListener(new java.awt.event.ActionListener() {
+        btnSave.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
+        btnSave.setText("Save");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bSaveActionPerformed(evt);
+                btnSaveActionPerformed(evt);
             }
         });
 
-        bUpdate.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
-        bUpdate.setText("Update");
-        bUpdate.addActionListener(new java.awt.event.ActionListener() {
+        btnUpdate.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
+        btnUpdate.setText("Update");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bUpdateActionPerformed(evt);
+                btnUpdateActionPerformed(evt);
             }
         });
 
-        bDelete.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
-        bDelete.setText("Delete");
-        bDelete.addActionListener(new java.awt.event.ActionListener() {
+        btnDelete.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
+        btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bDeleteActionPerformed(evt);
+                btnDeleteActionPerformed(evt);
             }
         });
 
@@ -160,7 +164,7 @@ public class customerView extends javax.swing.JFrame {
                                 .addComponent(lblCustProvince, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(txtCustProvince, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 216, Short.MAX_VALUE))
+                                .addGap(0, 136, Short.MAX_VALUE))
                             .addGroup(panelCustomerFormLayout.createSequentialGroup()
                                 .addGroup(panelCustomerFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(txtCustId, javax.swing.GroupLayout.Alignment.LEADING)
@@ -188,11 +192,11 @@ public class customerView extends javax.swing.JFrame {
                         .addContainerGap())))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCustomerFormLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(bDelete)
+                .addComponent(btnDelete)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(bUpdate)
+                .addComponent(btnUpdate)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(bSave)
+                .addComponent(btnSave)
                 .addContainerGap())
         );
         panelCustomerFormLayout.setVerticalGroup(
@@ -231,18 +235,18 @@ public class customerView extends javax.swing.JFrame {
                 .addGroup(panelCustomerFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCustZip)
                     .addComponent(txtCustZip, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                 .addGroup(panelCustomerFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bSave)
-                    .addComponent(bUpdate)
-                    .addComponent(bDelete))
+                    .addComponent(btnSave)
+                    .addComponent(btnUpdate)
+                    .addComponent(btnDelete))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
@@ -257,54 +261,33 @@ public class customerView extends javax.swing.JFrame {
                 .addComponent(panelCustomerForm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
-
-        pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        // TODO add your handling code here:
+        saveCustomer();
+    }//GEN-LAST:event_btnSaveActionPerformed
+
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        // TODO add your handling code here:
+        updateCustomer();
+    }//GEN-LAST:event_btnUpdateActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        // TODO add your handling code here:
+        deleteCustomer();
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void tblCustomerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCustomerMouseClicked
         // TODO add your handling code here:
-        //searchCustomer();
+        searchCustomer();
     }//GEN-LAST:event_tblCustomerMouseClicked
 
-    private void bSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSaveActionPerformed
-        // TODO add your handling code here:
-        saveCustomer();
-    }//GEN-LAST:event_bSaveActionPerformed
-
-    private void bUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bUpdateActionPerformed
-        // TODO add your handling code here:
-        //updateCustomer();
-    }//GEN-LAST:event_bUpdateActionPerformed
-
-    private void bDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bDeleteActionPerformed
-        // TODO add your handling code here:
-        //deleteCustomer();
-    }//GEN-LAST:event_bDeleteActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    /*public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        
-        //</editor-fold>
-
-        /* Create and display the form */
-        /*java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new customerView().setVisible(true);
-            }
-        });
-    }*/
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton bDelete;
-    private javax.swing.JButton bSave;
-    private javax.swing.JButton bUpdate;
+    private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnSave;
+    private javax.swing.JButton btnUpdate;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JLabel lblCustAddress;
     private javax.swing.JLabel lblCustCity;
@@ -344,7 +327,7 @@ public class customerView extends javax.swing.JFrame {
         try {
             String resp = CUSTOMER_CONTROLLER.saveCustomer(customerDto);
             JOptionPane.showMessageDialog(this, resp);
-      //      loadTable();
+            loadTable();
             clearForm();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
@@ -366,7 +349,7 @@ public class customerView extends javax.swing.JFrame {
         try {
             String resp = CUSTOMER_CONTROLLER.updateCustomer(customerDto);
             JOptionPane.showMessageDialog(this, resp);
-      //      loadTable();
+            loadTable();
             clearForm();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
@@ -379,11 +362,37 @@ public class customerView extends javax.swing.JFrame {
         try {
             String resp = CUSTOMER_CONTROLLER.deleteCustomer(custID);
             JOptionPane.showMessageDialog(this, resp);
-      //      loadTable();
+            loadTable();
             clearForm();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }   
+    }
+    
+    private void searchCustomer(){
+        String custID = (String) tblCustomer.getValueAt(tblCustomer.getSelectedRow(), 0);
+        System.out.println(custID);
+        
+        try {
+
+            CustomerDto customerDto = CUSTOMER_CONTROLLER.searchCustomer(custID);
+            if (customerDto != null) {
+                txtCustId.setText(customerDto.getCustID());
+                txtCustTitle.setText(customerDto.getCustTitle());
+                txtCustName.setText(customerDto.getCustName());
+                txtCustDob.setText(customerDto.getDOB());
+                txtCustSalary.setText(Double.toString(customerDto.getSalary()));
+                txtCustAddress.setText(customerDto.getCustAddress());
+                txtCustCity.setText(customerDto.getCity());
+                txtCustProvince.setText(customerDto.getProvince());
+                txtCustZip.setText(customerDto.getPostalCode());
+                
+            } else {
+                JOptionPane.showMessageDialog(this, "Customer Not Found");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
     }
     
     private void clearForm() {
@@ -396,5 +405,27 @@ public class customerView extends javax.swing.JFrame {
         txtCustCity.setText("");
         txtCustProvince.setText("");
         txtCustZip.setText("");
+    }
+
+    private void loadTable() {
+        String columns[] = {"Customer Id", "Customer Title", "Cutomer Name", "DOB", "Salary", "Address", "Province", "Postal Code"};
+        DefaultTableModel dtm = new DefaultTableModel(columns, 0){
+           
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+            
+        };
+        tblCustomer.setModel(dtm);
+        try {
+            List<CustomerDto> customerDtos = CUSTOMER_CONTROLLER.getAllCustomers();
+            for (CustomerDto dto : customerDtos) {
+                Object [] rowData = {dto.getCustID(), dto.getCustTitle(), dto.getCustName(), dto.getDOB(), dto.getSalary(), dto.getCustAddress(), dto.getCity(), dto.getProvince(), dto.getPostalCode()};
+                dtm.addRow(rowData);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
     }
 }
